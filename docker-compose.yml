@@ -13,9 +13,8 @@ services:
       - postgres
     volumes:
       - .:/app
-      - /app/node_modules
     entrypoint: docker/entrypoint.sh
-    command: bin/puma -C config/puma.rb
+    command: bundle exec puma -C config/puma.rb
 
   postgres:
     image: postgres:12.2-alpine
@@ -37,11 +36,12 @@ services:
   ui:
     image: node:15.5.1-alpine3.12
     ports:
-      - 3000:8080
+      - 3011:3000
+    working_dir: /home
     volumes:
       - ./ui:/home
       - node_modules:/home/node_modules
-    command: yarn install && yarn run dev
+    command: yarn run dev
 
 volumes:
   # redis:
