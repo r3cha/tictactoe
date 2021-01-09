@@ -10,6 +10,43 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 2021_01_08_214941) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "rooms", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
+  create_table "tictac_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tictac_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tictac_id"], name: "index_tictac_users_on_tictac_id"
+    t.index ["user_id"], name: "index_tictac_users_on_user_id"
+  end
+
+  create_table "tictacs", force: :cascade do |t|
+    t.string "circles", array: true
+    t.string "crosses", array: true
+    t.bigint "room_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_tictacs_on_room_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  add_foreign_key "rooms", "users"
+  add_foreign_key "tictac_users", "tictacs"
+  add_foreign_key "tictac_users", "users"
+  add_foreign_key "tictacs", "rooms"
 end

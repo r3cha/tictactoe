@@ -41,9 +41,10 @@ services:
     volumes:
       - ./ui:/home
       - node_modules:/home/node_modules
-    command: yarn run dev
+    command: yarn run start
 
 volumes:
   # redis:
   postgres_data:
   node_modules:
+  sqlite3_db:
