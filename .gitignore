@@ -31,3 +31,4 @@
 /config/master.key
 
 ui/node_modules
+.idea
